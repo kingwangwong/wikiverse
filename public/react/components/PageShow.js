@@ -23,6 +23,9 @@ export const PageShow = ({ displayPage, setDisplayPage, fetchPages }) => {
                 <p>Author: {displayPage.author.name}</p>
                 <p>Published: {displayPage.createdAt}</p>
                 <p>{displayPage.content}</p>
+                <p>Tags: {displayPage.tags.map( (tag)=>
+                    {return tag.name}
+                )}</p>
                 <button onClick={() => setDisplayPage(null)}>Back to List</button>
                 <button onClick={()=>setDisplayEdit(true)}>Edit Page</button>
                 <button onClick={() => kill()}>Delete Page</button>

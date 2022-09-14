@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import apiURL from '../api';
 
-export const Edit = ({ setDisplayEdit, displayPage, fetchPages }) => {
+export const Edit = ({ setDisplayEdit, displayPage, fetchPages,setDisplayPage }) => {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('')
@@ -14,12 +14,13 @@ export const Edit = ({ setDisplayEdit, displayPage, fetchPages }) => {
             content: content,
             name: name,
             email: email,
-            tags: tags
+            tags: tags,
+            slug: title
         }
         event.preventDefault();
         console.log("form submitted")
         const response = await fetch(`${apiURL}/wiki/${displayPage.slug}`, {
-            method: "PATCH",
+            method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -29,6 +30,7 @@ export const Edit = ({ setDisplayEdit, displayPage, fetchPages }) => {
         });
         const data = await response.json();
         setDisplayEdit(false);
+        setDisplayPage(null);
         fetchPages(data);
     }
 

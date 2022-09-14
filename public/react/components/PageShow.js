@@ -17,7 +17,7 @@ export const PageShow = ({ displayPage, setDisplayPage, fetchPages }) => {
     return (
         <>
             {displayEdit ? (
-                <Edit setDisplayEdit={setDisplayEdit} displayPage={displayPage} fetchPages={fetchPages}/>
+                <Edit setDisplayEdit={setDisplayEdit} displayPage={displayPage} fetchPages={fetchPages} setDisplayPage={setDisplayPage}/>
             ) : (<>
                 <h1>{displayPage.title}</h1>
                 <p>Author: {displayPage.author.name}</p>

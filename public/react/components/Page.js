@@ -1,13 +1,13 @@
 import React from 'react';
 
-export const Page = ({page, displayPage}) => {
+export const Page = ({ page, displayPage, fetchSlug }) => {
 
-  const handleClick = async ()=>{
+  const handleClick = async () => {
 
   }
+  console.log(page)
   return <>
-    <h3>{page.title}</h3>
-    <button onClick={()=>handleClick()}>Read Page</button>
+    <h3 onClick={() => fetchSlug(page)}>{page.title}</h3>
+
   </>
-} 
-	
+}

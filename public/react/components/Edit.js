@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import apiURL from '../api';
 
-export const Add = ({ setDisplayAdd, fetchPages }) => {
+export const Edit = ({ setDisplayEdit, displayPage, fetchPages }) => {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('')
@@ -18,8 +18,8 @@ export const Add = ({ setDisplayAdd, fetchPages }) => {
         }
         event.preventDefault();
         console.log("form submitted")
-        const response = await fetch(`${apiURL}/wiki`, {
-            method: "POST",
+        const response = await fetch(`${apiURL}/wiki/${displayPage.slug}`, {
+            method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -28,14 +28,13 @@ export const Add = ({ setDisplayAdd, fetchPages }) => {
             )
         });
         const data = await response.json();
-        setDisplayAdd(false);
+        setDisplayEdit(false);
         fetchPages(data);
     }
 
-
     return (
         <>
-            <hi>Add Page</hi>
+            <h1>Edit Page</h1>
             <form onSubmit={() => handleSubmit()}>
                 <input type="text" placeholder="Title"
                     value={title} onChange={(ev) => setTitle(ev.target.value)} />
@@ -50,7 +49,7 @@ export const Add = ({ setDisplayAdd, fetchPages }) => {
                 <button type="submit" >submit</button>
             </form>
 
-            <button onClick={() => setDisplayAdd(false)}>Cancel</button>
+            <button onClick={() => setDisplayEdit(false)}>Cancel</button>
         </>
     )
 }

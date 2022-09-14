@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PagesList } from './PagesList';
 import { Add } from './Add';
-import { Delete } from './Delete';
 import { PageShow } from './PageShow';
 
 // import and prepend the api url to any fetch calls
@@ -10,8 +9,7 @@ import apiURL from '../api';
 export const App = () => {
 
 	const [pages, setPages] = useState([]);
-	const [displayAdd, setDisplayAdd] = useState(null);
-	const [displayDelete, setDisplayDelete] = useState(null);
+	const [displayAdd, setDisplayAdd] = useState(false);
 	const [displayPage, setDisplayPage] = useState(null);
 
 	async function fetchPages() {
@@ -24,26 +22,30 @@ export const App = () => {
 		}
 	}
 
+
+	async function fetchSlug(page) {
+		const response = await fetch(`${apiURL}/wiki/${page.slug}`);
+		const data = await response.json();
+		setDisplayPage(data)
+	}
+
 	useEffect(() => {
 		fetchPages();
 	}, []);
 
 	return (
 		<main>
-			{/* <h1>WikiVerse</h1>
-			<h2>An interesting 📚</h2>
-			<PagesList pages={pages} /> */}
+			
 			{displayAdd ? (
-				<Add />
-			) : displayDelete ? (
-				<Delete />
+				<Add setDisplayAdd={setDisplayAdd} fetchPages={fetchPages} />
 			) : displayPage ? (
-				<PageShow />
+				<PageShow displayPage={displayPage} setDisplayPage={setDisplayPage} fetchPages={fetchPages}/>
 			) : (
 				<>
 					<h1>WikiVerse</h1>
 					<h2>An interesting 📚</h2>
-					<PagesList pages={pages} displayPage={displayPage}/>
+					<PagesList pages={pages} displayPage={displayPage} fetchSlug={fetchSlug}/>
+					<button onClick={()=>setDisplayAdd(true)}>Add a new article</button>
 				</>
 			)}
 		</main>

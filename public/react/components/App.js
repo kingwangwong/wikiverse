@@ -51,3 +51,20 @@ export const App = () => {
 		</main>
 	)
 }
+
+// Stretch Goals
+
+// Here is a list of OPTIONAL stretch goals, if you have extra time!
+
+// Ability to update article
+
+// Ability to create new user
+
+// Single author view, with list of articles by the author
+
+// View for multiple authors, with link to the single author
+
+// Searching/filtering articles 
+
+// CSS Styling
+
